@@ -12,22 +12,16 @@
 version: 2.1
 orbs:
   cypress: cypress-io/cypress@3
-
-jobs:
-  test:
-    docker:
-      - image: circleci/node:14
-    steps:
-      - checkout
-      - run:
-          name: Run tests
-          install-browsers: true
-          command: npx cypress run --browser chrome
-      - store_artifacts:
-          path: reports/
-
 workflows:
-  version: 2
-  build-and-test:
+  test:
     jobs:
-      - test
+      - cypress/run:
+          install-browsers: true
+          cypress-command: 'npx cypress run --browser chrome'
+          steps:
+            - store_artifacts:
+                path: cypress/videos
+                destination: cypress_videos
+            - store_artifacts:
+                path: cypress/screenshots
+                destination: cypress_screenshots
