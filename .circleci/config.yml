@@ -1,3 +1,14 @@
+# version: 2.1
+
+# orbs:
+#   cypress: cypress-io/cypress@3
+# workflows:
+#   test:
+#     jobs:
+#       - cypress/run:
+#           install-browsers: true
+#           cypress-command: 'npx cypress run --browser chrome'
+
 version: 2.1
 orbs:
   cypress: cypress-io/cypress@3
@@ -6,8 +17,7 @@ workflows:
   test:
     jobs:
       - cypress-run:
-          install-browsers: true
-          cypress-command: 'npx cypress run --browser chrome'
+          node-version: 14.15.0
 
 jobs:
   cypress-run:
@@ -15,10 +25,10 @@ jobs:
     steps:
       - checkout
       - cypress/install
-      - run:
-          name: Run Cypress tests
-          command: |
-            npx cypress run --browser chrome
+      - cypress/run:
+          record: true
+          parallel: true
       - store_artifacts:
           path: cypress/screenshots
           destination: screenshots
+
