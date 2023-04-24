@@ -17,12 +17,16 @@ workflows:
       - cypress/run:
           install-browsers: true
           cypress-command: 'npx cypress run --browser chrome'
-      - store_artifacts:
-          path: cypress/screenshots/
-          destination: screenshots/
-      - store_artifacts:
-          path: cypress/videos/
-          destination: videos/
+      - persist_to_workspace:
+          root: cypress/screenshots/
+          paths:
+            - "**"
+          name: Screenshots
+      - persist_to_workspace:
+          root: cypress/videos/
+          paths:
+            - "**"
+          name: Videos
 
 
 
