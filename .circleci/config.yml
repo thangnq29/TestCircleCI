@@ -39,9 +39,12 @@ jobs:
           name: Run Cypress tests
           command: |
             $(npm bin)/cypress run
-
-orbs:
-  persist-to-workspace: circleci/persist-to-workspace@1.0.2
+      - store_artifacts:
+          path: cypress/screenshots
+          destination: screenshots
+      - store_artifacts:
+          path: cypress/videos
+          destination: videos
 
 workflows:
   test:
@@ -50,16 +53,17 @@ workflows:
       - cypress-run:
           requires:
             - workspace
-      - persist-to-workspace/persist:
-          root: cypress/screenshots/
-          paths:
-            - "**"
-          name: Screenshots
-      - persist-to-workspace/persist:
-          root: cypress/videos/
-          paths:
-            - "**"
-          name: Videos
+
+      - run:
+          name: Retrieve screenshots
+          command: |
+            mkdir -p cypress/screenshots
+            circleci-agent artifacts download screenshots ./cypress/screenshots
+      - run:
+          name: Retrieve videos
+          command: |
+            mkdir -p cypress/videos
+            circleci-agent artifacts download videos ./cypress/videos
 
 
 
