@@ -20,14 +20,14 @@ workflows:
 jobs:
   cypress-run:
     executor:
-      name: cypress/default
-      tag: 0.1.4
+      name: cypress/base-10
     steps:
       - checkout
-      - cypress/install
+      - cypress/install:
+          node-version: 14.17.0
+          yarn: true
       - cypress/run:
-          record: true
-          parallel: true
+          browser: chrome
       - store_artifacts:
           path: cypress/screenshots
           destination: screenshots
