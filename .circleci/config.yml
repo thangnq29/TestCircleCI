@@ -10,7 +10,7 @@
 #           cypress-command: 'npx cypress run --browser chrome'
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@3
+  cypress: cypress-io/cypress@1.0.0
 
 workflows:
   test:
@@ -21,14 +21,16 @@ jobs:
   cypress-run:
     executor:
       name: cypress/default
-      image: cypress/base:14.15.0
+      tag: 0.1.4
     steps:
       - checkout
       - cypress/install
-      - run:
-          command: npx cypress run --record --parallel
+      - cypress/run:
+          record: true
+          parallel: true
       - store_artifacts:
           path: cypress/screenshots
           destination: screenshots
+
 
 
