@@ -19,9 +19,9 @@ jobs:
       - checkout
       - run:
           name: Run tests
-          command: npm run test
+          command: npx cypress run
       - store_artifacts:
-          path: test-results/
+          path: reports/
 
 workflows:
   version: 2
