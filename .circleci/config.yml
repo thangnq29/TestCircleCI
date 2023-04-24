@@ -10,12 +10,17 @@
 #           cypress-command: 'npx cypress run --browser chrome'
 
 version: 2.1
-orbs:
-  cypress: cypress-io/cypress@3
+
 jobs:
-  build:
-    working_directory: /tmp
+  test:
+    docker:
+      - image: circleci/node:14
+    working_directory: ~/repo
     steps:
+      - checkout
+      - run:
+          name: Run tests
+          command: npm run test
       - run:
           name: Creating Dummy Artifacts
           command: |
@@ -27,9 +32,3 @@ jobs:
           destination: artifact-file
       - store_artifacts:
           path: /tmp/artifacts
-  test:
-    jobs:
-      - cypress/run:
-          install-browsers: true
-          command: 'npx cypress run --browser chrome'
-
