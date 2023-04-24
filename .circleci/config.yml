@@ -10,6 +10,8 @@
 #           cypress-command: 'npx cypress run --browser chrome'
 
 version: 2.1
+orbs:
+  cypress: cypress-io/cypress@3
 
 jobs:
   test:
@@ -19,6 +21,7 @@ jobs:
       - checkout
       - run:
           name: Run tests
+          install-browsers: true
           command: npx cypress run --browser chrome
       - store_artifacts:
           path: reports/
