@@ -10,7 +10,7 @@
 #           cypress-command: 'npx cypress run --browser chrome'
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@3.6.1
+  cypress: cypress-io/cypress@1.0.0
 
 workflows:
   test:
@@ -27,10 +27,11 @@ jobs:
           node-version: 14.17.0
           yarn: true
       - cypress/run:
-          run: npx cypress run --record --parallel
+          command: npx cypress run --record --parallel
       - store_artifacts:
           path: cypress/screenshots
           destination: screenshots
+
 
 
 
