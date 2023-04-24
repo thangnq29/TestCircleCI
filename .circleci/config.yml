@@ -9,8 +9,14 @@
 #           install-browsers: true
 #           cypress-command: 'npx cypress run --browser chrome'
 version: 2.1
+
 orbs:
   cypress: cypress-io/cypress@1.0.0
+
+executors:
+  node:
+    docker:
+      - image: circleci/node:14.17.0
 
 workflows:
   test:
@@ -20,18 +26,16 @@ workflows:
 jobs:
   cypress-run:
     executor:
-      name: cypress/base-10
+      name: node
     steps:
       - checkout
-      - cypress/install:
-          node-version: 14.17.0
-          yarn: true
+      - cypress/install
       - cypress/run:
-          command: npx cypress run --record --parallel
+          record: true
+          parallel: true
       - store_artifacts:
           path: cypress/screenshots
           destination: screenshots
-
 
 
 
