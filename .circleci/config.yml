@@ -17,10 +17,11 @@ jobs:
       - run:
           name: Create workspace directory
           command: |
-            mkdir -p /workspace
+            sudo mkdir -p /workspace
             sudo chown -R $USER:$USER /workspace
       - attach_workspace:
           at: /workspace
+
 
   cypress-run:
     docker:
