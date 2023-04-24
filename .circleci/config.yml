@@ -27,7 +27,7 @@ jobs:
           node-version: 14.17.0
           yarn: true
       - cypress/run:
-          browser: chrome
+          run: npx cypress run --record --parallel
       - store_artifacts:
           path: cypress/screenshots
           destination: screenshots
