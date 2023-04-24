@@ -13,13 +13,12 @@ jobs:
   workspace:
     docker:
       - image: cimg/base:2022.05
-    working_directory: /tmp/workspace
     steps:
       - run:
           name: Create workspace directory
           command: |
-            mkdir -p /tmp/workspace
-            sudo chown -R $USER:$USER /tmp/workspace
+            mkdir -p /workspace
+            sudo chown -R $USER:$USER /workspace
       - attach_workspace:
           at: /workspace
 
