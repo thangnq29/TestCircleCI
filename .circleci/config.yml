@@ -31,4 +31,7 @@ jobs:
       - store_artifacts:
           path: cypress/screenshots
           destination: screenshots
+    working_directory: ~/project
+    environment:
+      CYPRESS_CACHE_FOLDER: /home/circleci/.cache/Cypress
 
