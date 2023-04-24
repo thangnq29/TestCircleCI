@@ -30,9 +30,8 @@ jobs:
     steps:
       - checkout
       - cypress/install
-      - cypress/run:
-          record: true
-          parallel: true
+      - run:
+          command: npx cypress run --record --parallel
       - store_artifacts:
           path: cypress/screenshots
           destination: screenshots
