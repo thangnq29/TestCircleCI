@@ -8,26 +8,24 @@
 #       - cypress/run:
 #           install-browsers: true
 #           cypress-command: 'npx cypress run --browser chrome'
-
 version: 2.1
-
 orbs:
   cypress: cypress-io/cypress@3
 
 workflows:
   test:
     jobs:
-      - cypress-run:
-          node-version: 14.15.0
+      - cypress-run
 
 jobs:
   cypress-run:
-    executor: cypress/default
+    executor:
+      name: cypress/default
+      image: cypress/base:14.15.0
     steps:
       - checkout
       - cypress/install
       - run:
-          name: Run Cypress tests
           command: npx cypress run --record --parallel
       - store_artifacts:
           path: cypress/screenshots
