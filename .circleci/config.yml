@@ -1,5 +1,4 @@
 version: 2.1
-
 orbs:
   cypress: cypress-io/cypress@3
 workflows:
@@ -8,6 +7,9 @@ workflows:
       - cypress/run:
           install-browsers: true
           cypress-command: 'npx cypress run --browser chrome'
+          artifacts:
+            - "cypress/screenshots/**"
+            - "cypress/videos/**"
 
 
 
