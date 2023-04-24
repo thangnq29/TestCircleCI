@@ -1,40 +1,13 @@
-# version: 2.1
-
-# orbs:
-#   cypress: cypress-io/cypress@3
-# workflows:
-#   test:
-#     jobs:
-#       - cypress/run:
-#           install-browsers: true
-#           cypress-command: 'npx cypress run --browser chrome'
 version: 2.1
 
 orbs:
-  cypress: cypress-io/cypress@1.0.0
-
-executors:
-  node:
-    docker:
-      - image: circleci/node:14.17.0
-
+  cypress: cypress-io/cypress@3
 workflows:
   test:
     jobs:
-      - cypress-run
-
-jobs:
-  cypress-run:
-    executor:
-      name: node
-    steps:
-      - checkout
-      - cypress/install
-      - run:
-          command: npx cypress run --browser chrome
-      - store_artifacts:
-          path: cypress/screenshots
-          destination: screenshots
+      - cypress/run:
+          install-browsers: true
+          cypress-command: 'npx cypress run --browser chrome'
 
 
 
