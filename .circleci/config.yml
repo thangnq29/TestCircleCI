@@ -5,7 +5,5 @@ workflows:
   test:
     jobs:
       - cypress/run:
-          # install-browsers: true
-          # cypress-command: 'npx cypress run --browser chrome'
-          install-command: npm install && echo hello
-          cypress-command: npm test
+          install-browsers: true
+          cypress-command: 'npx cypress run --browser chrome'
