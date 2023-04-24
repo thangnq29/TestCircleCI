@@ -51,9 +51,7 @@ jobs:
       - store_artifacts:
           path: cypress/videos
           destination: videos
-      - store_artifacts:
-          path: cypress/reports
-          destination: reports
+    
 
   retrieve-screenshots:
     docker:
@@ -79,18 +77,6 @@ jobs:
             mkdir -p cypress/videos
             circleci-agent artifacts download videos ./cypress/videos
 
-  retrieve-reports:
-    docker:
-      - image: cimg/base:2022.05
-    steps:
-      - attach_workspace:
-          at: /workspace
-      - run:
-          name: Retrieve reports
-          command: |
-            mkdir -p cypress/reports
-            circleci-agent artifacts download reports ./cypress/reports
-
 workflows:
   test:
     jobs:
@@ -102,9 +88,6 @@ workflows:
           requires:
             - cypress-run
       - retrieve-videos:
-          requires:
-            - cypress-run
-      - retrieve-reports:
           requires:
             - cypress-run
 
