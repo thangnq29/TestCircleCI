@@ -8,4 +8,4 @@ workflows:
           # install-browsers: true
           # cypress-command: 'npx cypress run --browser chrome'
           install-command: npm install && echo hello
-          cypress-command: npm test run
+          cypress-command: npm test
