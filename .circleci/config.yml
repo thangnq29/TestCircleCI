@@ -25,7 +25,6 @@ jobs:
 orbs:
   cypress: cypress-io/cypress@3
 workflows:
-  build:
   test:
     jobs:
       - cypress/run:
