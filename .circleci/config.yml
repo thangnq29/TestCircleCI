@@ -1,3 +1,13 @@
+# version: 2.1
+# orbs:
+#   cypress: cypress-io/cypress@3
+# workflows:
+#   test:
+#     jobs:
+#       - cypress/run:
+#           install-browsers: true
+#           cypress-command: 'npx cypress run --browser chrome'
+
 version: 2.1
 orbs:
   cypress: cypress-io/cypress@3
@@ -7,9 +17,13 @@ workflows:
       - cypress/run:
           install-browsers: true
           cypress-command: 'npx cypress run --browser chrome'
-          artifacts:
-            - "cypress/screenshots/**"
-            - "cypress/videos/**"
+      - store_artifacts:
+          path: cypress/screenshots/
+          destination: screenshots/
+      - store_artifacts:
+          path: cypress/videos/
+          destination: videos/
+
 
 
 
