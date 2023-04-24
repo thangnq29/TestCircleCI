@@ -19,9 +19,15 @@ workflows:
           install-browsers: true
           cypress-command: 'npx cypress run --browser chrome'
           steps:
+            - run:
+                name: Creating Dummy Artifacts
+                command: |
+                  echo "my artifact file" > /tmp/art-1;
+                  mkdir /tmp/artifacts;
+                  echo "my artifact files in a dir" > /tmp/artifacts/art-2;
             - store_artifacts:
-                path: cypress/videos
-                destination: cypress_videos
+                path: /tmp/art-1
+                destination: artifact-file
             - store_artifacts:
-                path: cypress/screenshots
-                destination: cypress_screenshots
+                path: /tmp/artifacts
+                destination: artifacts-directory
