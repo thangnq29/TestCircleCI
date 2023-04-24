@@ -9,21 +9,53 @@
 #           cypress-command: 'npx cypress run --browser chrome'
 
 version: 2.1
+jobs:
+  workspace:
+    docker:
+      - image: cimg/base:2022.05
+    steps:
+      - attach_workspace:
+          at: /workspace
+
+  cypress-run:
+    docker:
+      - image: cypress/base:12.18.3
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-dependencies-
+      - run:
+          name: Install Cypress
+          command: |
+            npm install
+            $(npm bin)/cypress verify
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - run:
+          name: Run Cypress tests
+          command: |
+            $(npm bin)/cypress run
+
 orbs:
-  cypress: cypress-io/cypress@3
+  persist-to-workspace: circleci/persist-to-workspace@1.0.2
+
 workflows:
   test:
     jobs:
       - workspace
-      - cypress/run:
-          install-browsers: true
-          cypress-command: 'npx cypress run --browser chrome'
-      - persist_to_workspace:
+      - cypress-run:
+          requires:
+            - workspace
+      - persist-to-workspace/persist:
           root: cypress/screenshots/
           paths:
             - "**"
           name: Screenshots
-      - persist_to_workspace:
+      - persist-to-workspace/persist:
           root: cypress/videos/
           paths:
             - "**"
