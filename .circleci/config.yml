@@ -10,20 +10,8 @@
 #           cypress-command: 'npx cypress run --browser chrome'
 
 version: 2.1
-
 orbs:
   cypress: cypress-io/cypress@3
-
-workflows:
-  build:
-    jobs:
-      - build:
-  test:
-    jobs:
-      - cypress/run:
-          install-browsers: true
-          cypress-command: 'npx cypress run --browser chrome'
-
 jobs:
   build:
     working_directory: /tmp
@@ -39,4 +27,9 @@ jobs:
           destination: artifact-file
       - store_artifacts:
           path: /tmp/artifacts
+  test:
+    jobs:
+      - cypress/run:
+          install-browsers: true
+          command: 'npx cypress run --browser chrome'
 
