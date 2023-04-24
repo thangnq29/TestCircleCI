@@ -10,6 +10,7 @@
 #           cypress-command: 'npx cypress run --browser chrome'
 
 version: 2.1
+
 orbs:
   cypress: cypress-io/cypress@3
 
@@ -25,13 +26,11 @@ jobs:
     steps:
       - checkout
       - cypress/install
-      - cypress/run:
-          record: true
-          parallel: true
+      - run:
+          name: Run Cypress tests
+          command: npx cypress run --record --parallel
       - store_artifacts:
           path: cypress/screenshots
           destination: screenshots
-    working_directory: ~/project
-    environment:
-      CYPRESS_CACHE_FOLDER: /home/circleci/.cache/Cypress
+
 
